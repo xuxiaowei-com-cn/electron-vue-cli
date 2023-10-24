@@ -1,0 +1,52 @@
+stages:
+  - build
+
+build:yarn:node:18.16.0:
+  stage: build
+  image: node:18.16.0
+  variables:
+    # yarn 缓存路径
+    YARN_CACHE_FOLDER: $CI_PROJECT_DIR/.cache
+    # electron 缓存路径
+    ELECTRON_CACHE: $CI_PROJECT_DIR/.cache/electron/cache
+  script:
+    - yarn config set registry https://registry.npmmirror.com
+    - yarn install
+    - yarn build
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - node_modules/
+      - .cache/
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # PR 到 main 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+    # PR 合并到 main 后执行、推送到 main 分支时
+    - if: $CI_COMMIT_BRANCH == "main"
+
+build:npm:node:18.16.0:
+  stage: build
+  image: node:18.16.0
+  variables:
+    # npm 缓存路径
+    NPM_CONFIG_CACHE: $CI_PROJECT_DIR/.cache
+    # electron 缓存路径
+    ELECTRON_CACHE: $CI_PROJECT_DIR/.cache/electron/cache
+  script:
+    - npm config set registry https://registry.npmmirror.com
+    - npm install
+    - npm run build
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - node_modules/
+      - .cache/
+  # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
+  # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
+  rules:
+    # PR 到 main 分支时预执行
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+    # PR 合并到 main 后执行、推送到 main 分支时
+    - if: $CI_COMMIT_BRANCH == "main"
