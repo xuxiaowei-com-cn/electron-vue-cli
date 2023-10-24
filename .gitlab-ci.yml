@@ -1,9 +1,9 @@
 stages:
   - build
 
-build:yarn:node:18.16.0:
+build:yarn:node:16.19.1:
   stage: build
-  image: node:18.16.0
+  image: node:16.19.1
   variables:
     # yarn 缓存路径
     YARN_CACHE_FOLDER: $CI_PROJECT_DIR/.cache
@@ -26,9 +26,9 @@ build:yarn:node:18.16.0:
     # PR 合并到 main 后执行、推送到 main 分支时
     - if: $CI_COMMIT_BRANCH == "main"
 
-build:npm:node:18.16.0:
+build:npm:node:16.19.1:
   stage: build
-  image: node:18.16.0
+  image: node:16.19.1
   variables:
     # npm 缓存路径
     NPM_CONFIG_CACHE: $CI_PROJECT_DIR/.cache
