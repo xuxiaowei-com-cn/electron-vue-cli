@@ -8,11 +8,45 @@
     "pre:yarn": "yarn install --registry https://registry.npmmirror.com || yarn install --registry https://registry.npmjs.org",
     "pre:pnpm": "pnpm install --registry https://registry.npmmirror.com || pnpm install --registry https://registry.npmjs.org",
     "start": "electron .",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "徐晓伟 <xuxiaowei@xuxiaowei.com.cn>",
   "license": "MIT",
+  "dependencies": {
+    "core-js": "3.33.1",
+    "vue": "3.3.6"
+  },
   "devDependencies": {
-    "electron": "27.0.2"
-  }
+    "@babel/core": "7.23.2",
+    "@babel/eslint-parser": "7.22.15",
+    "@vue/cli-plugin-babel": "5.0.8",
+    "@vue/cli-plugin-eslint": "5.0.8",
+    "@vue/cli-service": "5.0.8",
+    "electron": "27.0.2",
+    "eslint": "7.32.0",
+    "eslint-plugin-vue": "8.7.1"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
 }
