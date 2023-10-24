@@ -2,10 +2,17 @@
   "name": "electron-vue-cli",
   "version": "1.0.0",
   "description": "基于 Vue cli 的 Electron 项目",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
+    "pre:npm": "npm install --registry https://registry.npmmirror.com || npm install --registry https://registry.npmjs.org",
+    "pre:yarn": "yarn install --registry https://registry.npmmirror.com || yarn install --registry https://registry.npmjs.org",
+    "pre:pnpm": "pnpm install --registry https://registry.npmmirror.com || pnpm install --registry https://registry.npmjs.org",
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "徐晓伟 <xuxiaowei@xuxiaowei.com.cn>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "27.0.2"
+  }
 }
