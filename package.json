@@ -1,0 +1,11 @@
+{
+  "name": "electron-vue-cli",
+  "version": "1.0.0",
+  "description": "基于 Vue cli 的 Electron 项目",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "徐晓伟 <xuxiaowei@xuxiaowei.com.cn>",
+  "license": "MIT"
+}
