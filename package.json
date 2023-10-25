@@ -7,17 +7,33 @@
     "pre:npm": "npm install --registry https://registry.npmmirror.com || npm install --registry https://registry.npmjs.org",
     "pre:yarn": "yarn install --registry https://registry.npmmirror.com || yarn install --registry https://registry.npmjs.org",
     "pre:pnpm": "pnpm install --registry https://registry.npmmirror.com || pnpm install --registry https://registry.npmjs.org",
-    "start": "electron .",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
+    "electron:build": "vue-cli-service electron:build",
+    "electron:build:linux:deb": "vue-cli-service electron:build --linux deb",
+    "electron:build:linux:rpm": "vue-cli-service electron:build --linux rpm",
+    "electron:build:win:ia32": "vue-cli-service electron:build --windows nsis:ia32",
+    "electron:build:win:x64": "vue-cli-service electron:build --windows nsis:x64",
+    "lint": "vue-cli-service lint",
     "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postuninstall": "electron-builder install-app-deps"
   },
   "main": "background.js",
+  "bugs": {
+    "url": "https://github.com/xuxiaowei-com-cn/electron-vue-cli/issues"
+  },
+  "homepage": "https://github.com/xuxiaowei-com-cn/electron-vue-cli",
+  "keywords": [
+    "electron",
+    "electron-builder",
+    "eslint",
+    "vue"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuxiaowei-com-cn/electron-vue-cli.git"
+  },
   "dependencies": {
     "core-js": "3.33.1",
     "vue": "3.3.6"
