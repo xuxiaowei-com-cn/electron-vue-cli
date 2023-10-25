@@ -1,5 +1,7 @@
 stages:
   - build
+  - sync
+
 
 build:yarn:node:16.19.1:
   stage: build
@@ -50,3 +52,7 @@ build:npm:node:16.19.1:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
     # PR 合并到 main 后执行、推送到 main 分支时
     - if: $CI_COMMIT_BRANCH == "main"
+
+
+include:
+  - /sync.yml
