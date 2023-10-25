@@ -11,6 +11,8 @@ build:yarn:node:16.19.1:
     YARN_CACHE_FOLDER: $CI_PROJECT_DIR/.cache
     # electron 缓存路径
     ELECTRON_CACHE: $CI_PROJECT_DIR/.cache/electron/cache
+    # electron-builder 缓存路径
+    ELECTRON_BUILDER_CACHE: $CI_PROJECT_DIR/.cache/electron-builder/cache
   script:
     - yarn config set registry https://registry.npmmirror.com
     - yarn install
@@ -36,6 +38,8 @@ build:npm:node:16.19.1:
     NPM_CONFIG_CACHE: $CI_PROJECT_DIR/.cache
     # electron 缓存路径
     ELECTRON_CACHE: $CI_PROJECT_DIR/.cache/electron/cache
+    # electron-builder 缓存路径
+    ELECTRON_BUILDER_CACHE: $CI_PROJECT_DIR/.cache/electron-builder/cache
   script:
     - npm config set registry https://registry.npmmirror.com
     - npm install
