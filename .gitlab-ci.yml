@@ -5,7 +5,8 @@ stages:
 
 build:yarn:node:16.19.1:
   stage: build
-  image: node:16.19.1
+  # 使用作者构建的镜像，无需运行 apt-get update && apt-get install -y rpm，节省时间，避免网络影响
+  image: xuxiaoweicomcn/node-rpm:16.19.1
   variables:
     # yarn 缓存路径
     YARN_CACHE_FOLDER: $CI_PROJECT_DIR/.cache
@@ -16,12 +17,52 @@ build:yarn:node:16.19.1:
   script:
     - yarn config set registry https://registry.npmmirror.com
     - yarn install
+    # 使用作者构建的镜像，无需运行 apt-get update && apt-get install -y rpm，即可构建 .rpm 产物，节省时间，避免网络影响
+    # - apt-get update
+    # - apt-get install -y rpm
+    - cat vue.config.js
+    # 增加 .rpm 产物
+    - sed -i '/"AppImage",/i \ \ \ \ \ \ "rpm",' vue.config.js
+    # 增加 .deb 产物
+    - sed -i '/"AppImage",/i \ \ \ \ \ \ "deb",' vue.config.js
+    - cat vue.config.js
     - yarn electron:build
+    - ls release
+    - ls dist_electron.*.*
   cache:
     key: "${CI_JOB_NAME}"
     paths:
       - node_modules/
       - .cache/
+  artifacts:
+    name: "${CI_JOB_NAME}"
+    paths:
+      - dist_electron/*.exe
+      - dist_electron/**.exe.blockmap
+      - dist_electron/*.dmg
+      - dist_electron/**.dmg.blockmap
+      - dist_electron/*.rpm
+      - dist_electron/**.rpm.blockmap
+      - dist_electron/*.deb
+      - dist_electron/**.deb.blockmap
+      - dist_electron/*.AppImage
+      - dist_electron/**.AppImage.blockmap
+      - dist_electron/*.tar.gz
+      - dist_electron/**.tar.gz.blockmap
+      - dist_electron/*.tar.xz
+      - dist_electron/**.tar.xz.blockmap
+      - dist_electron/alpha.yml
+      - dist_electron/beta.yml
+      - dist_electron/dev.yml
+      - dist_electron/rc.yml
+      - dist_electron/stable.yml
+      - dist_electron/latest.yml
+      - dist_electron/alpha-*.yml
+      - dist_electron/beta-*.yml
+      - dist_electron/dev-*.yml
+      - dist_electron/rc-*.yml
+      - dist_electron/stable-*.yml
+      - dist_electron/latest-*.yml
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
@@ -32,7 +73,8 @@ build:yarn:node:16.19.1:
 
 build:npm:node:16.19.1:
   stage: build
-  image: node:16.19.1
+  # 使用作者构建的镜像，无需运行 apt-get update && apt-get install -y rpm，节省时间，避免网络影响
+  image: xuxiaoweicomcn/node-rpm:16.19.1
   variables:
     # npm 缓存路径
     NPM_CONFIG_CACHE: $CI_PROJECT_DIR/.cache
@@ -42,13 +84,53 @@ build:npm:node:16.19.1:
     ELECTRON_BUILDER_CACHE: $CI_PROJECT_DIR/.cache/electron-builder/cache
   script:
     - npm config set registry https://registry.npmmirror.com
-    - npm install
+    - npm i
+    # 使用作者构建的镜像，无需运行 apt-get update && apt-get install -y rpm，即可构建 .rpm 产物，节省时间，避免网络影响
+    # - apt-get update
+    # - apt-get install -y rpm
+    - cat vue.config.js
+    # 增加 .rpm 产物
+    - sed -i '/"AppImage",/i \ \ \ \ \ \ "rpm",' vue.config.js
+    # 增加 .deb 产物
+    - sed -i '/"AppImage",/i \ \ \ \ \ \ "deb",' vue.config.js
+    - cat vue.config.js
     - npm run electron:build
+    - ls release
+    - ls dist_electron.*.*
   cache:
     key: "${CI_JOB_NAME}"
     paths:
       - node_modules/
       - .cache/
+  artifacts:
+    name: "${CI_JOB_NAME}"
+    paths:
+      - dist_electron/*.exe
+      - dist_electron/**.exe.blockmap
+      - dist_electron/*.dmg
+      - dist_electron/**.dmg.blockmap
+      - dist_electron/*.rpm
+      - dist_electron/**.rpm.blockmap
+      - dist_electron/*.deb
+      - dist_electron/**.deb.blockmap
+      - dist_electron/*.AppImage
+      - dist_electron/**.AppImage.blockmap
+      - dist_electron/*.tar.gz
+      - dist_electron/**.tar.gz.blockmap
+      - dist_electron/*.tar.xz
+      - dist_electron/**.tar.xz.blockmap
+      - dist_electron/alpha.yml
+      - dist_electron/beta.yml
+      - dist_electron/dev.yml
+      - dist_electron/rc.yml
+      - dist_electron/stable.yml
+      - dist_electron/latest.yml
+      - dist_electron/alpha-*.yml
+      - dist_electron/beta-*.yml
+      - dist_electron/dev-*.yml
+      - dist_electron/rc-*.yml
+      - dist_electron/stable-*.yml
+      - dist_electron/latest-*.yml
   # https://docs.gitlab.com/ee/ci/yaml/index.html#rules
   # 极狐GitLab中文文档：https://docs.gitlab.cn/jh/ci/yaml/index.html#rules
   rules:
